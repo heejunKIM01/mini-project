@@ -2,36 +2,44 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from "styled-components"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
+import { motion } from "framer-motion"
+
 
 function AddPaper() {
-  const navigate = useNavigate()
-  const [inputValue, setInputValue] = useState('')
+    const navigate = useNavigate()
+    const [inputValue, setInputValue] = useState('')
 
-  const onInputHandler = (e) => {
-    setInputValue(e.target.value);
-  };
+    const onInputHandler = (e) => {
+        setInputValue(e.target.value);
+    };
 
-  const inputCount = inputValue.length;
+    const inputCount = inputValue.length;
 
-  return (
-    <StContainer>
-      <StBackButton onClick={() => { navigate("/") }}><FontAwesomeIcon icon={faArrowLeft} size='xl'/></StBackButton>
-      <StInputArea>
-        <StTitle>제목 입력</StTitle>
-        <StInput placeholder='12자 이내로 적어주세요' onChange={onInputHandler} value={inputValue} maxLength="12"></StInput>
-          <StWordCount>
-            <span>{inputCount}</span> 
-            <span>/12 자</span>
-          </StWordCount>
-        <StComment>한줄 소개글</StComment>
-        <StInput placeholder='소개글을 적어주세요'></StInput>
-      </StInputArea>
-      <StSaveButtonContainer>
-        <StSaveButton onClick={()=>{navigate('/paper')}}>저장</StSaveButton>
-      </StSaveButtonContainer>
-    </StContainer>
-  )
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 1.2 } }}
+            exit={{ opacity: 0, transition: { duration: 1.2 } }}
+        >
+            <StContainer>
+                <StBackButton onClick={() => { navigate("/") }}><FontAwesomeIcon icon={faArrowLeft} size='xl' /></StBackButton>
+                <StInputArea>
+                    <StTitle>제목 입력</StTitle>
+                    <StInput placeholder='12자 이내로 적어주세요' onChange={onInputHandler} value={inputValue} maxLength="12"></StInput>
+                    <StWordCount>
+                        <span>{inputCount}</span>
+                        <span>/12 자</span>
+                    </StWordCount>
+                    <StComment>한줄 소개글</StComment>
+                    <StInput placeholder='소개글을 적어주세요'></StInput>
+                </StInputArea>
+                <StSaveButtonContainer>
+                    <StSaveButton onClick={() => { navigate('/paper') }}>저장</StSaveButton>
+                </StSaveButtonContainer>
+            </StContainer>
+        </motion.div>
+    )
 }
 
 

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
 import styled from "styled-components"
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
 
 
 
@@ -11,12 +11,17 @@ function Home() {
   const navigate = useNavigate();
 
   return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1.2 } }}
+      exit={{ opacity: 0, transition: { duration: 1.2 } }}
+    >
       <StContainer>
         <StHeader>
           <StTitle>
             Longlling Paper
           </StTitle>
-          <StMyPageButton onClick={() => {navigate("/mypage")}}>
+          <StMyPageButton onClick={() => { navigate("/mypage") }}>
             <FontAwesomeIcon icon={faUser} size='xl' />
           </StMyPageButton>
         </StHeader>
@@ -27,9 +32,10 @@ function Home() {
           <StInput placeholder='링크를 복사 후, 입력창에 붙여넣기해주세요.'></StInput>
         </InputContainer>
         <StAddContainer>
-          <StAddPaper onClick={()=>{navigate("/addpaper")}}>내 롤링페이퍼 만들기</StAddPaper>
+          <StAddPaper onClick={() => { navigate("/addpaper") }}>내 롤링페이퍼 만들기</StAddPaper>
         </StAddContainer>
-      </StContainer>   
+      </StContainer>
+    </motion.div>
   )
 }
 
