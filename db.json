@@ -5,16 +5,12 @@
       "id": 1
     },
     {
-      "comment": "db 연결 테스트 중..",
-      "id": 2
-    },
-    {
-      "comment": "테스트 완료!",
-      "id": 3
-    },
-    {
       "comment": "삭제 버튼 기능 구현!",
       "id": 4
+    },
+    {
+      "comment": "react query 적용 완료",
+      "id": 5
     }
   ]
 }

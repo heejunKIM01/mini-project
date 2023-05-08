@@ -5,33 +5,42 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons"
 import { faPen } from "@fortawesome/free-solid-svg-icons"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { motion } from "framer-motion";
+import api, { deleteComment } from "../axios/api"
+import { useQuery, useQueryClient } from 'react-query'
+import { getComment } from '../axios/api'
+import { useMutation } from 'react-query'
 
 
 function Paper() {
-  const paperMemo = ['안녕!', '안녕 반가워~~!', '우리 조 화이팅!']
 
   const [paper, setPaper] = useState()
 
-  const fetchPapers = async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/paper`)
-    setPaper(data)
+  const { isError, isLoading, data } = useQuery('comment', getComment)
+
+  const queryClient = useQueryClient()
+  const mutation = useMutation(deleteComment, {
+    onSuccess : () => {
+        queryClient.invalidateQueries("comment")
+        console.log('삭제 성공!')
+    }
+})
+
+  if (isLoading) {
+    <h1>로딩 중입니다..!</h1>
+  }
+
+  if (isError) {
+    <h1>에러가 발생하였습니다..!</h1>
   }
 
   const onDeleteButtonClickHandler = async (id) => {
-    axios.delete(`${process.env.REACT_APP_SERVER_URL}/paper/${id}`)
-    setPaper(
-      paper.filter((item) => {
-        return item.id !== id
-      })
-    )
+    try {
+      mutation.mutate(id)
+    } catch (error) {
+      console.log(error)
+    }
   }
-
-  useEffect(() => {
-    // db로부터 데이터 가져오는 부분 
-    fetchPapers()
-  }, [])
 
   const navigate = useNavigate()
 
@@ -53,7 +62,7 @@ function Paper() {
         </StHeader>
         <StPaperBoxContainer>
           {
-            paper?.map((item) => {
+            data?.map((item) => {
               return (
                 <StPaperBox key={item.id}>
                   {item.comment}

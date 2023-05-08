@@ -3,10 +3,22 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
 import { motion } from "framer-motion";
+import api from "../axios/api"
+import { addComment } from '../axios/api';
+import { useMutation, useQueryClient } from 'react-query';
 
 function AddComment() {
+
+    // react-query 관련 코드 
+    const queryClient = useQueryClient()
+    const mutation = useMutation(addComment, {
+        onSuccess : () => {
+            queryClient.invalidateQueries("comment")
+            console.log('뮤테이션 성공!')
+        }
+    })
+
 
     const navigate = useNavigate()
 
@@ -20,10 +32,10 @@ function AddComment() {
 
     const onSubmitHandler = async () => {
         try {
-            await axios.post(`${process.env.REACT_APP_SERVER_URL}/paper`, inputValue);
-            navigate('/paper');
-        } catch (error) {
-            console.log(error);
+            mutation.mutate(inputValue)
+            navigate('/paper')
+        }catch (error) {
+            console.log(error)
         }
     }
 
