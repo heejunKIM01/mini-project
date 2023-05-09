@@ -6,7 +6,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
 import { motion } from "framer-motion";
-import api, { deleteComment } from "../axios/api"
+import { deleteComment, getTitle } from "../axios/api"
 import { useQuery, useQueryClient } from 'react-query'
 import { getComment } from '../axios/api'
 import { useMutation } from 'react-query'
@@ -16,21 +16,23 @@ function Paper() {
 
   const [paper, setPaper] = useState()
 
-  const { isError, isLoading, data } = useQuery('comment', getComment)
+  const { isError: isErrorComment, isLoading: isLoadingComment, data: dataComment } = useQuery('comment', getComment)
+
+  const { isError: isErrorTitle, isLoading: isLoadingTitle, data: dataTitle } = useQuery('title', getTitle)
+
 
   const queryClient = useQueryClient()
   const mutation = useMutation(deleteComment, {
-    onSuccess : () => {
-        queryClient.invalidateQueries("comment")
-        console.log('삭제 성공!')
+    onSuccess: () => {
+      queryClient.invalidateQueries("comment")
     }
-})
+  })
 
-  if (isLoading) {
+  if (isLoadingComment) {
     <h1>로딩 중입니다..!</h1>
   }
 
-  if (isError) {
+  if (isErrorComment) {
     <h1>에러가 발생하였습니다..!</h1>
   }
 
@@ -55,15 +57,29 @@ function Paper() {
           <StHomeIcon onClick={() => { navigate('/') }}>
             <FontAwesomeIcon icon={faHouse} size='xl' />
           </StHomeIcon>
-          <StTitle>
-            To. 안녕~!
-          </StTitle>
-          <ContentHeader>한줄 소개</ContentHeader>
+          {
+            dataTitle?.map((item) => {
+              return (
+                <StTitle key={item.id}>
+                  {item.title}
+                </StTitle>
+              )
+            })
+          }
+          {
+            dataTitle?.map((item) => {
+              return (
+                <ContentHeader key={item.id}>
+                  {item.content}
+                </ContentHeader>
+              )
+            })
+          }
         </StHeader>
         <StPaperBoxContainer>
           {
-            data?.map((item) => {
-              return (
+            dataComment?.map((item) => {
+              return (               
                 <StPaperBox key={item.id}>
                   {item.comment}
                   <DeleteButton onClick={() => { onDeleteButtonClickHandler(item.id) }}><FontAwesomeIcon icon={faTrash} /></DeleteButton>

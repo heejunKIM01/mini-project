@@ -4,11 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
-import api from "../axios/api"
 import { addComment } from '../axios/api';
 import { useMutation, useQueryClient } from 'react-query';
 
 function AddComment() {
+    const navigate = useNavigate()
+
+
+
 
     // react-query 관련 코드 
     const queryClient = useQueryClient()
@@ -19,8 +22,15 @@ function AddComment() {
         }
     })
 
+    const onSubmitHandler = async () => {
+        try {
+            mutation.mutate(inputValue)
+            navigate('/paper')
+        }catch (error) {
+            console.log(error)
+        }
+    }
 
-    const navigate = useNavigate()
 
     const [inputValue, setInputValue] = useState({
         comment: '',
@@ -30,14 +40,6 @@ function AddComment() {
         setInputValue({ comment: e.target.value })
     }
 
-    const onSubmitHandler = async () => {
-        try {
-            mutation.mutate(inputValue)
-            navigate('/paper')
-        }catch (error) {
-            console.log(error)
-        }
-    }
 
     return (
         <motion.div
