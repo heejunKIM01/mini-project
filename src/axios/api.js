@@ -33,6 +33,10 @@ instance.interceptors.response.use(
 
 /////////////////////////////////////////////////////////////////// 아래는 react-query
 
+const signup = async (user) => {
+    await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/signup`, user, { withCredentials: true })
+}
+
 
 const getComment = async () => {
     const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/paper`)
@@ -58,5 +62,5 @@ const deleteComment = async (id) => {
 
 
 export default instance;
-export { getComment, addComment, deleteComment, getTitle, addPaper }
+export { getComment, addComment, deleteComment, getTitle, addPaper, signup }
 

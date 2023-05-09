@@ -6,6 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { motion } from "framer-motion";
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import axios from "axios";
+import { signup } from '../axios/api';
+
+
 
 function JoinPage() {
 
@@ -22,24 +25,46 @@ function JoinPage() {
 
 
 
-    const onSubmitHandler = async () => {
-        const isValid = validateForm();
+    // const onSubmitHandler = async () => {
+    //     const isValid = validateForm();
 
-        if (isValid) {
-            try {
-                const response = await axios.post('/api/signup', {
-                    nickname: nickname,
-                    email: email,
-                    password: password,
-                })
-                console.log(response.data); // 서버 응답 결과 처리
-                return response.data
-            } catch (error) {
-                console.error(error);
-                return error
-            }
+    //     if (isValid) {
+    //         try {
+    //             const response = await axios.post('/api/signup', {
+    //                 nickname: nickname,
+    //                 email: email,
+    //                 password: password,
+    //             })
+    //             console.log(response.data); // 서버 응답 결과 처리
+    //             return response.data
+    //         } catch (error) {
+    //             console.error(error);
+    //             return error
+    //         }
+    //     }
+    // };
+
+
+    const queryClient = useQueryClient()
+    const mutation = useMutation(signup, {
+        onSuccess : () => {
+            console.log('서버 연결 성공!')
         }
-    };
+    })
+
+    const onSubmitHandler = async () => {
+        try {
+            mutation.mutate({
+                nickname: nickname,
+                email: email,
+                password: password,
+            })
+            navigate('/')
+        }catch (error) {
+            console.log(error)
+        }
+    }
+
 
 
     const validateForm = () => {
