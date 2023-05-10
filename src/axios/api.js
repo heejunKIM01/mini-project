@@ -1,5 +1,6 @@
 import axios from "axios";
 // axios.defaults.baseURL = 'http://43.201.106.25:3000';
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'https://kimchaeminthegreat.shop';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'https://kimchaeminthegreat.shop';
 
 const instance = axios.create({

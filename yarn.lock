@@ -3124,7 +3124,7 @@ boolbase@^1.0.0, boolbase@~1.0.0:
 
 bootstrap@^5.2.3:
   version "5.2.3"
-  resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-5.2.3.tgz"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.2.3.tgz#54739f4414de121b9785c5da3c87b37ff008322b"
   integrity sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ==
 
 brace-expansion@^1.1.7:
@@ -8273,7 +8273,7 @@ prop-types-extra@^1.1.0:
     react-is "^16.3.2"
     warning "^4.0.0"
 
-prop-types@^15.6.2, prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -8393,9 +8393,16 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
+react-bootstrap-icons@^1.10.3:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-icons/-/react-bootstrap-icons-1.10.3.tgz#5d64a93c7b172856b03c7d3cd5119a025b094966"
+  integrity sha512-j4hSby6gT9/enhl3ybB1tfr1slZNAYXDVntcRrmVjxB3//2WwqrzpESVqKhyayYVaWpEtnwf9wgUQ03cuziwrw==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-bootstrap@^2.7.4:
   version "2.7.4"
-  resolved "https://registry.npmjs.org/react-bootstrap/-/react-bootstrap-2.7.4.tgz"
+  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-2.7.4.tgz#db95ecdcdfae9619de14511b5e9923bf95daf73d"
   integrity sha512-EPKPwhfbxsKsNBhJBitJwqul9fvmlYWSft6jWE2EpqhEyjhqIqNihvQo2onE5XtS+QHOavUSNmA+8Lnv5YeAyg==
   dependencies:
     "@babel/runtime" "^7.21.0"
