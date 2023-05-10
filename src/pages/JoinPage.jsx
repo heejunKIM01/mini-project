@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { motion } from "framer-motion";
 import { useQueryClient, useMutation, useQuery } from 'react-query';
-import axios from "axios";
 import { signup } from '../axios/api';
+
 
 
 
@@ -24,47 +24,26 @@ function JoinPage() {
     const [pwValid, setPwValid] = useState(false)
 
 
-
-    // const onSubmitHandler = async () => {
-    //     const isValid = validateForm();
-
-    //     if (isValid) {
-    //         try {
-    //             const response = await axios.post('/api/signup', {
-    //                 nickname: nickname,
-    //                 email: email,
-    //                 password: password,
-    //             })
-    //             console.log(response.data); // 서버 응답 결과 처리
-    //             return response.data
-    //         } catch (error) {
-    //             console.error(error);
-    //             return error
-    //         }
-    //     }
-    // };
-
-
     const queryClient = useQueryClient()
     const mutation = useMutation(signup, {
-        onSuccess : () => {
+        onSuccess: () => {
             console.log('서버 연결 성공!')
         }
     })
 
-    const onSubmitHandler = async () => {
+
+    const onSubmitHandler = async () => { 
         try {
-            mutation.mutate({
+            mutation.mutate({ 
                 nickname: nickname,
                 email: email,
                 password: password,
-            })
-            navigate('/')
-        }catch (error) {
-            console.log(error)
+            });
+            navigate('/'); 
+        } catch (error) {
+            console.log(error);
         }
-    }
-
+    };
 
 
     const validateForm = () => {

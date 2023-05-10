@@ -12,7 +12,7 @@ function AddComment() {
 
 
 
-
+    
     // react-query 관련 코드 
     const queryClient = useQueryClient()
     const mutation = useMutation(addComment, {
@@ -22,16 +22,6 @@ function AddComment() {
         }
     })
 
-    const onSubmitHandler = async () => {
-        try {
-            mutation.mutate(inputValue)
-            navigate('/paper')
-        }catch (error) {
-            console.log(error)
-        }
-    }
-
-
     const [inputValue, setInputValue] = useState({
         comment: '',
     })
@@ -40,6 +30,14 @@ function AddComment() {
         setInputValue({ comment: e.target.value })
     }
 
+    const onSubmitHandler = async () => {
+        try {
+            mutation.mutate(inputValue)
+            navigate('/paper')
+        }catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <motion.div

@@ -1,4 +1,6 @@
 import axios from "axios";
+// axios.defaults.baseURL = 'http://43.201.106.25:3000';
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'https://kimchaeminthegreat.shop';
 
 const instance = axios.create({
     baseURL: process.env.REACT_APP_SERVER_URL,
@@ -34,7 +36,7 @@ instance.interceptors.response.use(
 /////////////////////////////////////////////////////////////////// 아래는 react-query
 
 const signup = async (user) => {
-    await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/signup`, user, { withCredentials: true })
+    await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/signup`, user, { withCredentials : true })
 }
 
 
